@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Галерея</title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body onload="drawPic()">
+
+    <section id="picturesHere">
+        <!-- <div>
+        <img src="images/red.jpg" alt="" width="300">
+        <p><a href="#">Костел</a></p>
+    </div> -->
+    </section>
+    <section id="bigPicture">
+        <!-- <img src="images/red.jpg" width="1000" alt="">
+<p>Подпись</p> -->
+    </section>
+
+    <script>
+
+        let gallery = [
+            {
+                fname: ["red.jpg", "red1.jpg", "red2.jpg"],
+                w: "300",
+                title: "Красный костел",
+                link: "https://msj.by/katolicheskie-xramy/krasnyj-kostel-v-minske/",
+                description: "В храме святого Симеона и святой Елены находится полномасштабная копия Туринской Плащаницы."
+            },
+            {
+                fname: ["troi.jpg", "troi1.jpg","troi2.jpg"],
+                w: "300",
+                title: "Троицкое предместье",
+                link: "https://vetliva.ru/belarus/what-to-see/troitskoe-predmeste-v-minske/",
+                description: "Троицкое предместье — исторический район города Минска, расположенный в северо-восточной части исторического центра на левом берегу реки Свислочь."
+            },
+            {
+                fname: ["mir.jpg", "mir1.jpg", "mir2.jpg"],
+                w: "300",
+                title: "Мирский замок",
+                link: "https://mirzamak.by/",
+                description: "Построенный в начале XVI в. магнатом Ю. И. Ильиничем замок стал первым частнособственническим замком на землях Беларуси"
+            }
+        ];
+
+
+        function drawPic() {
+            let s = "";
+            for (i = 0; i < gallery.length; i++) {
+
+                s += `
+        <div id="id${i}">
+          <img  src="images/${gallery[i].fname[0]}" alt="" width="${gallery[i].w}" onclick="showPic('${gallery[i].fname[0]}','${gallery[i].description}')" onmouseover="timerId=setTimeout('roll(${i})', 1000)" onmouseout="clearTimeout(timerId)">
+          <p><a href="${gallery[i].link}"onmouseover="tab(this)" onmouseout="tab1(this)">${gallery[i].title}</a></p>
+        </div>
+        `;
+
+            }
+
+            picturesHere.innerHTML = s;
+
+            mkTitle();
+
+        }
+
+
+
+        let k = 0, p=2;
+        function roll(n) {
+
+            if(++k>p) k = 0;
+            idn = document.getElementById(`id${n}`);
+
+            idn.innerHTML = `
+            <div>
+                <img  onclick="showPic('${gallery[n].fname[k]}','${gallery[n].description}')" onmouseout="stop()" src="images/${gallery[n].fname[k]}" width="${gallery[n].w}">
+                <p><a href="${gallery[n].link}" onmouseover="tab(this)" onmouseout="tab1(this)">${gallery[n].title}</a></p>
+            </div>
+            `;
+            mkTitle();
+            timerId = setTimeout(`roll(${n})`,2000);
+        }
+
+        function stop() {
+            clearTimeout(timerId);
+            drawPic();
+        }
+
+
+        function showPic(f, d) {
+            bigPicture.innerHTML = `
+    <img src="images/${f}" width="1000" alt="" onclick="bigPicture.innerHTML=''">
+    <p>${d}</p> 
+    `;
+        }
+
+        function mkTitle() {
+            let find = document.querySelectorAll("#picturesHere p");
+            let find1 = document.querySelectorAll("#picturesHere a");
+            find1.forEach(function (item, i, find1) { item.setAttribute('class', 'link'); });
+
+            tab = (id) => { id.setAttribute('class', 'linkHover'); }
+            tab1 = (id) => { id.setAttribute('class', 'link'); }
+
+
+            // let find = document.querySelectorAll("#picturesHere p");
+            for (i = 0; i < find.length; i++) {
+                find[i].style = `
+                font-size: 20pt;
+                text-align: center;
+            `;
+            }
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>

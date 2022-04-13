@@ -1,0 +1,42 @@
+body {
+  width: 1000px;
+  margin: auto;
+  /* border: 1px solid brown; */
+}
+
+#picturesHere {
+  display: flex;
+  justify-content: space-between;
+}
+
+#bigPicture {
+  margin-top: 15px;
+}
+
+#bigPicture p {
+  font-size: 18pt;
+  text-align: center;
+  color: #333;
+}
+.link {
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+  background: rgb(7, 73, 7);
+  border: 2px solid #333;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.linkHover {
+  padding: 20px 20px;
+  text-decoration: none;
+  font-size: 20pt;
+  background: rgb(7, 73, 7);
+  border-radius: 10px;
+  color: white;
+  transition: 0.3s;
+}
+img {
+  cursor: pointer;
+}
